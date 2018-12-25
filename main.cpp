@@ -268,6 +268,35 @@ Polyn MultiplyPolyn(Polyn pa, Polyn pb) //求解并建立多项式a*b，返回其头指针
 }
 
 
+Polyn WriteFile(Polyn pa,Polyn pb)
+{
+	FILE *fp;
+	Polyn qa = pa->next;
+	Polyn qb = pb->next;
+	if ((fp = fopen("data.txt", "w")) == NULL)
+	{
+		printf("文件打开失败");
+		exit(0);
+	}
+	printf("(%.2f, %d)", qa->coef, qa->expn);
+	fprintf(fp, "(%.2f, %d)", qa->coef,qa->expn);
+	fclose(fp);
+}
+
+Polyn ReadFile()
+{
+	FILE *fp;
+	int i,m=2;
+	Polyn p;
+	p == (Polyn)malloc(sizeof(struct Polynomial));//动态分配内存 
+	p->next = NULL;
+	if ((fp = fopen("data.txt", "w")) == NULL)
+	{
+		printf("文件打开失败");
+		exit(0);
+	}
+	fscanf(fp, "(%.2f, %d)", p->coef, p->expn);
+}
 
 /*主函数，菜单功能*/
 void main()
@@ -276,8 +305,7 @@ void main()
 	float x;
 	char flag;
 	Polyn pa = 0, pb = 0, pc;
-	system("color 70");
-
+	system("color 70");//设定背景和字体颜色，仅有16位
 	printf("         欢迎使用多项式操作程序\n\n");
 	printf("请输入a的项数:");
 	o = scanf("%d", &m);//当输入不需要的数据类型的数据，o就不等于1
@@ -299,20 +327,22 @@ void main()
 	pb = CreatePolyn(pb, n);//建立多项式b
 
 	//输出菜单
-	printf("   ********************************************************\n");
-	printf("   *                          多项式操作程序              *\n");
-	printf("   *                                                      *\n");
-	printf("   *           A:输出多项式a            B:输出多项式b     *\n");
-	printf("   *                                                      *\n");
-	printf("   *           C:输出a的导数            D:输出b的导数     *\n");
-	printf("   *                                                      *\n");
-	printf("   *           E:代入x的值计算a         F:代入x的值计算b  *\n");
-	printf("   *                                                      *\n");
-	printf("   *           G:输出a+b                H:输出a-b         *\n");
-	printf("   *                                                      *\n");
-	printf("   *           I:输出a*b                J:退出程序        *\n");
-	printf("   *                                                      *\n");
-	printf("   ********************************************************\n");
+	printf("   **********************************************************\n");
+	printf("   *                          多项式操作程序                *\n");
+	printf("   *                                                        *\n");
+	printf("   *           A:输出多项式a            B:输出多项式b       *\n");
+	printf("   *                                                        *\n");
+	printf("   *           C:输出a的导数            D:输出b的导数       *\n");
+	printf("   *                                                        *\n");
+	printf("   *           E:代入x的值计算a         F:代入x的值计算b    *\n");
+	printf("   *                                                        *\n");
+	printf("   *           G:输出a+b                H:输出a-b           *\n");
+	printf("   *                                                        *\n");
+	printf("   *           I:输出a*b                J:把多项式写入文件  *\n");
+	printf("   *                                                        *\n");
+	printf("   *           K:读取文件中的多项式     L:退出程序          *\n");
+	printf("   *                                                        *\n");
+	printf("   **********************************************************\n");
 
 	while (a)
 	{
@@ -393,6 +423,18 @@ void main()
 		}
 		case'J':
 		case'j':
+		{
+			
+			WriteFile(pa, pb);
+			break;
+		}
+		case'K':
+		case'k':
+		{
+			ReadFile();//这里有问题
+		}
+		case'L':
+		case'l':
 		{
 			printf("\n       感谢使用此程序！\n");
 			DestroyPolyn(pa);
