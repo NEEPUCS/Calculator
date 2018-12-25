@@ -55,15 +55,12 @@ Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£
 	int i;
 	Polyn p;
 	p = head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
-	if (head != NULL)
-		head->next = NULL;
+	head->next = NULL;
 	for (i = 0; i < m; i++)
 	{
 		p = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ĞÂ½áµãÒÔ½ÓÊÕÊı¾İ
-		if (p == NULL)
-			return 0;
 		printf("ÇëÊäÈëµÚ%dÏîµÄÏµÊıÓëÖ¸Êı:", i + 1);
-		scanf_s("%f %d", &p->coef, &p->expn);
+		scanf("%f %d", &p->coef, &p->expn);
 		Insert(p, head);                            //µ÷ÓÃInsertº¯Êı²åÈë½áµã
 	}
 	return head;
@@ -140,13 +137,11 @@ int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ
 			return 1;
 		else if (!a || a->expn < b->expn)
 			return -1;
-		else 
-			return 0;
+		else return 0;
 	}
 	else if (!a&&b)
 		return -1;             //a¶àÏîÊ½ÒÑ¿Õ£¬µ«b¶àÏîÊ½·Ç¿Õ
-	else 
-		return 1;         //b¶àÏîÊ½ÒÑ¿Õ£¬µ«a¶àÏîÊ½·Ç¿Õ
+	else return 1;         //b¶àÏîÊ½ÒÑ¿Õ£¬µ«a¶àÏîÊ½·Ç¿Õ
 }
 
 /*¶àÏîÊ½¼Ó·¨*/
@@ -156,14 +151,11 @@ Polyn AddPolyn(Polyn pa, Polyn pb)
 	Polyn qb = pb->next;
 	Polyn headc, hc, qc;
 	hc = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢Í·½áµã
-	if (hc == NULL)
-		return 0;
+	hc->next = NULL;
 	headc = hc;
 	while (qa || qb)
 	{
 		qc = (Polyn)malloc(sizeof(struct Polynomial));
-		if (qc || hc || qa == NULL)
-			return 0;
 		switch (compare(qa, qb)) {
 		case 1:
 		{
@@ -237,16 +229,12 @@ Polyn Derivative(Polyn head) {
 	//Çó½â²¢½¨Á¢µ¼º¯Êı¶àÏîÊ½£¬²¢·µ»ØÆäÍ·Ö¸Õë
 	Polyn q = head->next, p1, p2, hd;
 	hd = p1 = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢Í·½áµã
-	if (p1 == NULL)
-		return 0;
 	hd->next = NULL;
 	while (q)
 	{
 		if (q->expn != 0)
 		{               //¸ÃÏî²»ÊÇ³£ÊıÏîÊ±
 			p2 = (Polyn)malloc(sizeof(struct Polynomial));
-			if (p2 == NULL)
-				return 0;
 			p2->coef = q->coef*q->expn;
 			p2->expn = q->expn - 1;
 			p2->next = p1->next;//Á¬½Ó½áµã
@@ -264,15 +252,12 @@ Polyn MultiplyPolyn(Polyn pa, Polyn pb) {
 	Polyn qa = pa->next;
 	Polyn qb = pb->next;
 	hf = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢Í·½áµã
-	if (hf != NULL)
-		hf->next = NULL;
+	hf->next = NULL;
 	for (; qa; qa = qa->next)
 	{
 		for (qb = pb->next; qb; qb = qb->next)
 		{
 			pf = (Polyn)malloc(sizeof(struct Polynomial));
-			if (pf == NULL)
-				return 0;
 			pf->coef = qa->coef*qb->coef;
 			pf->expn = qa->expn + qb->expn;
 			Insert(pf, hf);//µ÷ÓÃInsertº¯ÊıÒÔºÏ²¢Ö¸ÊıÏàÍ¬µÄÏî
@@ -293,10 +278,20 @@ void main()
 
 	printf("         »¶Ó­Ê¹ÓÃ¶àÏîÊ½²Ù×÷³ÌĞò\n\n");
 	printf("ÇëÊäÈëaµÄÏîÊı:");
-	scanf_s("%d", &m);
+	scanf("%d", &m);
+	if (0 >= m || m > 20)
+	{
+		printf("ÇëÖØĞÂÊäÈëÏîÊı");
+		scanf("%d", &m);
+	}
 	pa = CreatePolyn(pa, m);//½¨Á¢¶àÏîÊ½a
 	printf("ÇëÊäÈëbµÄÏîÊı:");
-	scanf_s("%d", &n);
+	scanf("%d", &n);
+	if (0 >= n || n > 20)
+	{
+		printf("ÇëÖØĞÂÊäÈëÏîÊı");
+		scanf("%d", &n);
+	}
 	pb = CreatePolyn(pb, n);//½¨Á¢¶àÏîÊ½b
 
 	//Êä³ö²Ëµ¥
@@ -318,7 +313,7 @@ void main()
 	while (a)
 	{
 		printf("\nÇëÑ¡Ôñ²Ù×÷£º");
-		scanf_s(" %c", &flag,1);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ
+		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ
 		switch (flag)
 		{
 
@@ -356,7 +351,7 @@ void main()
 		case'e':
 		{
 			printf("ÊäÈëxµÄÖµ£ºx=");
-			scanf_s("%d", &x);
+			scanf("%d", &x);
 			printf("\n       x=%dÊ±£¬a=%d\n", x, ValuePolyn(pa, x));
 			break;
 		}
@@ -364,7 +359,7 @@ void main()
 		case'f':
 		{
 			printf("ÊäÈëxµÄÖµ£ºx=");
-			scanf_s("%d", &x);
+			scanf("%d", &x);
 			printf("\n       x=%dÊ±£¬b=%d\n", x, ValuePolyn(pb, x));
 			break;
 		}
@@ -401,11 +396,6 @@ void main()
 			a = 0;
 			break;
 		}
-		//case'K':
-		//case'k':
-		//{
-
-		//}
 		default:
 			printf("\n       ÄúµÄÑ¡Ôñ´íÎó£¬ÇëÖØĞÂÑ¡Ôñ!\n");
 		}
