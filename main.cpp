@@ -50,7 +50,7 @@ void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊıÃûÖĞ¿ÉÒÔ±
 }
 
 
-Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£¨Ò»¸ö¶àÏîÊ½×î¶à²»³¬¹ı20Ïî£¿£© 
+Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£¨Ò»¸ö¶àÏîÊ½×î¶à²»³¬¹ı20Ïî£© 
 {
 	int i;
 	Polyn p;
@@ -67,7 +67,7 @@ Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£
 }
 
 
-void DestroyPolyn(Polyn p)                         //Ïú»Ù¶àÏîÊ½p
+void DestroyPolyn(Polyn p) //Ïú»Ù¶àÏîÊ½p
 {
 	Polyn q1, q2;
 	q1 = p->next;
@@ -80,9 +80,9 @@ void DestroyPolyn(Polyn p)                         //Ïú»Ù¶àÏîÊ½p
 	}
 }
 
-/*Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag*/
 
-void PrintPolyn(Polyn P)
+
+void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag*
 {
 	Polyn q = P->next;
 	int flag = 1;                              //ÏîÊı¼ÆÊıÆ÷
@@ -144,8 +144,8 @@ int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ
 	else return 1;         //b¶àÏîÊ½ÒÑ¿Õ£¬µ«a¶àÏîÊ½·Ç¿Õ
 }
 
-/*¶àÏîÊ½¼Ó·¨*/
-Polyn AddPolyn(Polyn pa, Polyn pb)
+
+Polyn AddPolyn(Polyn pa, Polyn pb)//¶àÏîÊ½¼Ó·¨
 {//Çó½â²¢½¨Á¢¶àÏîÊ½a+b£¬·µ»ØÆäÍ·Ö¸Õë
 	Polyn qa = pa->next;
 	Polyn qb = pb->next;
@@ -192,7 +192,8 @@ Polyn AddPolyn(Polyn pa, Polyn pb)
 }
 
 
-Polyn SubtractPolyn(Polyn pa, Polyn pb) {//Çó½â²¢½¨Á¢¶àÏîÊ½a-b£¬·µ»ØÆäÍ·Ö¸Õë
+Polyn SubtractPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a-b£¬·µ»ØÆäÍ·Ö¸Õë
+{
 	Polyn h = pb;
 	Polyn p = pb->next;
 	Polyn pd;
@@ -207,11 +208,11 @@ Polyn SubtractPolyn(Polyn pa, Polyn pb) {//Çó½â²¢½¨Á¢¶àÏîÊ½a-b£¬·µ»ØÆäÍ·Ö¸Õë
 	return pd;
 }
 
-int ValuePolyn(Polyn head, int x) {
-	//ÊäÈëxÖµ£¬¼ÆËã²¢·µ»Ø¶àÏîÊ½µÄÖµ
+float ValuePolyn(Polyn head, int x) //ÊäÈëxÖµ£¬¼ÆËã²¢·µ»Ø¶àÏîÊ½µÄÖµ
+{
 	Polyn p;
 	int i;
-	int sum = 0, t;
+	float sum = 0, t;
 	for (p = head->next; p; p = p->next)
 	{
 		t = 1;
@@ -225,8 +226,8 @@ int ValuePolyn(Polyn head, int x) {
 	return sum;
 }
 
-Polyn Derivative(Polyn head) {
-	//Çó½â²¢½¨Á¢µ¼º¯Êı¶àÏîÊ½£¬²¢·µ»ØÆäÍ·Ö¸Õë
+Polyn Derivative(Polyn head) //Çó½â²¢½¨Á¢µ¼º¯Êı¶àÏîÊ½£¬²¢·µ»ØÆäÍ·Ö¸Õë
+{
 	Polyn q = head->next, p1, p2, hd;
 	hd = p1 = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢Í·½áµã
 	hd->next = NULL;
@@ -246,8 +247,8 @@ Polyn Derivative(Polyn head) {
 	return hd;
 }
 
-Polyn MultiplyPolyn(Polyn pa, Polyn pb) {
-	//Çó½â²¢½¨Á¢¶àÏîÊ½a*b£¬·µ»ØÆäÍ·Ö¸Õë
+Polyn MultiplyPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a*b£¬·µ»ØÆäÍ·Ö¸Õë
+{
 	Polyn hf, pf;
 	Polyn qa = pa->next;
 	Polyn qb = pb->next;
@@ -271,49 +272,52 @@ Polyn MultiplyPolyn(Polyn pa, Polyn pb) {
 /*Ö÷º¯Êı£¬²Ëµ¥¹¦ÄÜ*/
 void main()
 {
-	int m, n, a=1, x;
+	int m, n, o, a = 1;
+	float x;
 	char flag;
 	Polyn pa = 0, pb = 0, pc;
 	system("color 70");
 
 	printf("         »¶Ó­Ê¹ÓÃ¶àÏîÊ½²Ù×÷³ÌĞò\n\n");
 	printf("ÇëÊäÈëaµÄÏîÊı:");
-	scanf("%d", &m);
-	if (0 >= m || m > 20)
+	o = scanf("%d", &m);//µ±ÊäÈë²»ĞèÒªµÄÊı¾İÀàĞÍµÄÊı¾İ£¬o¾Í²»µÈÓÚ1
+	while (0 >= m || m > 20 || o != 1)//ÅĞ¶ÏÓÃ»§ÊäÈëµÄÖµÊÇ·ñÂú×ãÌõ¼ş
 	{
 		printf("ÇëÖØĞÂÊäÈëÏîÊı");
-		scanf("%d", &m);
-	}
+		while (getchar() != '\n');
+		o = scanf("%d", &m);
+	};
 	pa = CreatePolyn(pa, m);//½¨Á¢¶àÏîÊ½a
 	printf("ÇëÊäÈëbµÄÏîÊı:");
-	scanf("%d", &n);
-	if (0 >= n || n > 20)
+	o = scanf("%d", &n);
+	while (0 >= n || n > 20 || o != 1)
 	{
 		printf("ÇëÖØĞÂÊäÈëÏîÊı");
-		scanf("%d", &n);
-	}
+		while (getchar() != '\n');
+		o = scanf("%d", &n);
+	};
 	pb = CreatePolyn(pb, n);//½¨Á¢¶àÏîÊ½b
 
 	//Êä³ö²Ëµ¥
-	printf("   *******************************************************\n");
-	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌĞò               *\n");
+	printf("   ********************************************************\n");
+	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌĞò              *\n");
 	printf("   *                                                      *\n");
-	printf("   *           A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b       *\n");
+	printf("   *           A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b     *\n");
 	printf("   *                                                      *\n");
-	printf("   *           C:Êä³öaµÄµ¼Êı            D:Êä³öbµÄµ¼Êı       *\n");
+	printf("   *           C:Êä³öaµÄµ¼Êı            D:Êä³öbµÄµ¼Êı     *\n");
 	printf("   *                                                      *\n");
-	printf("   *           E:´úÈëxµÄÖµ¼ÆËãa          F:´úÈëxµÄÖµ¼ÆËãb   *\n");
+	printf("   *           E:´úÈëxµÄÖµ¼ÆËãa         F:´úÈëxµÄÖµ¼ÆËãb  *\n");
 	printf("   *                                                      *\n");
-	printf("   *           G:Êä³öa+b                H:Êä³öa-b          *\n");
+	printf("   *           G:Êä³öa+b                H:Êä³öa-b         *\n");
 	printf("   *                                                      *\n");
-	printf("   *           I:Êä³öa*b                J:ÍË³ö³ÌĞò         *\n");
+	printf("   *           I:Êä³öa*b                J:ÍË³ö³ÌĞò        *\n");
 	printf("   *                                                      *\n");
-	printf("   *******************************************************\n");
+	printf("   ********************************************************\n");
 
 	while (a)
 	{
 		printf("\nÇëÑ¡Ôñ²Ù×÷£º");
-		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ
+		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ,½«»º³åÇøÄÚµÄ¿Õ¸ñµÈ·ûºÅÓ°ÏìÏû³ı
 		switch (flag)
 		{
 
@@ -351,16 +355,16 @@ void main()
 		case'e':
 		{
 			printf("ÊäÈëxµÄÖµ£ºx=");
-			scanf("%d", &x);
-			printf("\n       x=%dÊ±£¬a=%d\n", x, ValuePolyn(pa, x));
+			scanf("%f", &x);
+			printf("\n       x=%.2fÊ±£¬a=%.2f\n", x, ValuePolyn(pa, x));
 			break;
 		}
 		case'F':
 		case'f':
 		{
 			printf("ÊäÈëxµÄÖµ£ºx=");
-			scanf("%d", &x);
-			printf("\n       x=%dÊ±£¬b=%d\n", x, ValuePolyn(pb, x));
+			scanf("%f", &x);
+			printf("\n       x=%.2fÊ±£¬b=%.2f\n", x, ValuePolyn(pb, x));
 			break;
 		}
 		case'G':
