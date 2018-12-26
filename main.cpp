@@ -10,12 +10,11 @@ typedef struct Polynomial     //¶àÏîÊ½
 {
 	float coef;               //ÏµÊı 
 	int expn;                 //Ö¸Êı 
-	struct Polynomial *next;  //µİ¹é 
+	struct Polynomial *next;  //µİ¹éËã·¨µÄÓ¦ÓÃ
 }*Polyn, Polynomial;
 
 /*Éè¼ÆË¼Â· ÀûÓÃinsertº¯Êı£¬½«Ö¸Êı²åÈëµ½´æ´¢¿Õ¼ä¡£ÈôÖ¸ÊıÏàÍ¬ÏàºÏ²¢ £»
 ÈôÏµÊıÎª0µÄ»°ÊÍ·Å½áµã£»ÈôÖ¸ÊıÎªĞÂ½«½áµã²åÈë*/
-
 
 void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊıÃûÖĞ¿ÉÒÔ±íÊ¾²åÈëÔªËØ¡£
 {
@@ -49,12 +48,11 @@ void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊıÃûÖĞ¿ÉÒÔ±
 	}
 }
 
-
 Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£¨Ò»¸ö¶àÏîÊ½×î¶à²»³¬¹ı20Ïî£© 
 {
 	int i;
 	Polyn p;
-	p = head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
+	head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ
 	head->next = NULL;
 	for (i = 0; i < m; i++)
 	{
@@ -66,23 +64,7 @@ Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊıÎªmµÄÒ»Ôª¶àÏîÊ½£
 	return head;
 }
 
-
-void DestroyPolyn(Polyn p) //Ïú»Ù¶àÏîÊ½p
-{
-	Polyn q1, q2;
-	q1 = p->next;
-	q2 = q1->next;
-	while (q1->next)
-	{
-		free(q1);
-		q1 = q2;
-		q2 = q2->next;
-	}
-}
-
-
-
-void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag*
+void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag
 {
 	Polyn q = P->next;
 	int flag = 1;                              //ÏîÊı¼ÆÊıÆ÷
@@ -128,7 +110,6 @@ void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag*
 	printf("\n");
 }
 
-
 int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ 
 {
 	if (a&&b)                //aºÍbÍ¬Ê±Îªtrue, ²Å·µ»Ø true, ·ñÔò·µ»Øfalse
@@ -143,7 +124,6 @@ int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ
 		return -1;             //a¶àÏîÊ½ÒÑ¿Õ£¬µ«b¶àÏîÊ½·Ç¿Õ
 	else return 1;         //b¶àÏîÊ½ÒÑ¿Õ£¬µ«a¶àÏîÊ½·Ç¿Õ
 }
-
 
 Polyn AddPolyn(Polyn pa, Polyn pb)//¶àÏîÊ½¼Ó·¨
 {//Çó½â²¢½¨Á¢¶àÏîÊ½a+b£¬·µ»ØÆäÍ·Ö¸Õë
@@ -190,7 +170,6 @@ Polyn AddPolyn(Polyn pa, Polyn pb)//¶àÏîÊ½¼Ó·¨
 	}
 	return headc;
 }
-
 
 Polyn SubtractPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a-b£¬·µ»ØÆäÍ·Ö¸Õë
 {
@@ -267,22 +246,21 @@ Polyn MultiplyPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a*b£¬·µ»ØÆäÍ·Ö¸Õë
 	return hf;
 }
 
-
 Polyn WriteFile(Polyn pa,Polyn pb)
 {
 	FILE *fp;
-	Polyn qa = pa->next;
+	Polyn qa = pa->next;//¶¨ÒåqaºÍqbÁ½¸öĞÂ½á¹¹Ìå±äÁ¿À´ÔİÊ±´æ´¢pa->nextºÍpb->nextµÄÁ´±í
 	Polyn qb = pb->next;
 	int i = 1, j = 1;
-	if ((fp = fopen("data.txt", "w")) == NULL)
+	if ((fp = fopen("data.txt", "w")) == NULL)//´ò¿ªÎÄ¼ş²¢ÅĞ¶ÏÊÇ·ñ´ò¿ª³É¹¦
 	{
 		printf("ÎÄ¼ş´ò¿ªÊ§°Ü");
 		exit(0);
 	}
 	for (; qa; qa = qa->next)
 	{
-		printf("Ğ´ÈëÎÄ¼şµÄ¶àÏîÊ½aµÚ%dÏîÏµÊıºÍÖ¸Êı·Ö±ğÎª£º%.2f  %d\n", i, qa->coef, qa->expn);
-		fprintf(fp, "(%.2f, %d)", qa->coef, qa->expn);
+		printf("Ğ´ÈëÎÄ¼şµÄ¶àÏîÊ½aµÚ%dÏîÏµÊıºÍÖ¸Êı·Ö±ğÎª£º%.2f  %d\n", i, qa->coef, qa->expn);//ÏÈÊä³öÒªĞ´ÈëµÄ¶àÏîÊ½µÄÏµÊı
+		fprintf(fp, "(%.2f, %d)", qa->coef, qa->expn);//ÏòÎÄ¼şÊä³ö¸ñÊ½»¯µÄÏµÊıºÍÖ¸Êı
 		i++;
 	}
 	fprintf(fp, "\n");
@@ -322,6 +300,19 @@ Polyn ReadFile()
 	//}
 }
 
+void DestroyPolyn(Polyn p) //Ïú»Ù¶àÏîÊ½p
+{
+	Polyn q1, q2;
+	q1 = p->next;
+	q2 = q1->next;
+	while (q1->next)
+	{
+		free(q1);
+		q1 = q2;
+		q2 = q2->next;
+	}
+}
+
 /*Ö÷º¯Êı£¬²Ëµ¥¹¦ÄÜ*/
 void main()
 {
@@ -351,27 +342,27 @@ void main()
 	pb = CreatePolyn(pb, n);//½¨Á¢¶àÏîÊ½b
 
 	//Êä³ö²Ëµ¥
-	printf("   **********************************************************\n");
-	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌĞò                *\n");
-	printf("   *                                                        *\n");
-	printf("   *           A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b       *\n");
-	printf("   *                                                        *\n");
-	printf("   *           C:Êä³öaµÄµ¼Êı            D:Êä³öbµÄµ¼Êı       *\n");
-	printf("   *                                                        *\n");
-	printf("   *           E:´úÈëxµÄÖµ¼ÆËãa         F:´úÈëxµÄÖµ¼ÆËãb    *\n");
-	printf("   *                                                        *\n");
-	printf("   *           G:Êä³öa+b                H:Êä³öa-b           *\n");
-	printf("   *                                                        *\n");
-	printf("   *           I:Êä³öa*b                J:°Ñ¶àÏîÊ½Ğ´ÈëÎÄ¼ş  *\n");
-	printf("   *                                                        *\n");
-	printf("   *           K:¶ÁÈ¡ÎÄ¼şÖĞµÄ¶àÏîÊ½     L:ÍË³ö³ÌĞò          *\n");
-	printf("   *                                                        *\n");
-	printf("   **********************************************************\n");
+	printf("   ********************************************************************\n");
+	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌĞò                          *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b               *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             C:Êä³öaµÄµ¼Êı            D:Êä³öbµÄµ¼Êı               *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             E:´úÈëxµÄÖµ¼ÆËãa         F:´úÈëxµÄÖµ¼ÆËãb            *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             G:Êä³öa+b                H:Êä³öa-b                   *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             I:Êä³öa*b                J:°Ñ¶àÏîÊ½Ğ´ÈëÎÄ¼ş          *\n");
+	printf("   *                                                                  *\n");
+	printf("   *             K:¶ÁÈ¡ÎÄ¼şÖĞµÄ¶àÏîÊ½     L:ÍË³ö³ÌĞò                  *\n");
+	printf("   *                                                                  *\n");
+	printf("   ********************************************************************\n");
 
 	while (a)
 	{
 		printf("\nÇëÑ¡Ôñ²Ù×÷£º");
-		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ,½«»º³åÇøÄÚµÄ¿Õ¸ñµÈ·ûºÅÓ°ÏìÏû³ı
+		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ,¿É½«»º³åÇøÄÚµÄ¿Õ¸ñµÈ·ûºÅÓ°ÏìÏû³ı
 		switch (flag)
 		{
 
