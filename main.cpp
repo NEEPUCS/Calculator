@@ -1,3 +1,6 @@
+// 3.cpp : Defines the entry point for the console application.
+//
+
 //Í·ÎÄ¼þ
 #include<stdio.h>
 #include<malloc.h>
@@ -10,11 +13,12 @@ typedef struct Polynomial     //¶àÏîÊ½
 {
 	float coef;               //ÏµÊý 
 	int expn;                 //Ö¸Êý 
-	struct Polynomial *next;  //µÝ¹éËã·¨µÄÓ¦ÓÃ
+	struct Polynomial *next;  //µÝ¹é 
 }*Polyn, Polynomial;
 
 /*Éè¼ÆË¼Â· ÀûÓÃinsertº¯Êý£¬½«Ö¸Êý²åÈëµ½´æ´¢¿Õ¼ä¡£ÈôÖ¸ÊýÏàÍ¬ÏàºÏ²¢ £»
 ÈôÏµÊýÎª0µÄ»°ÊÍ·Å½áµã£»ÈôÖ¸ÊýÎªÐÂ½«½áµã²åÈë*/
+
 
 void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊýÃûÖÐ¿ÉÒÔ±íÊ¾²åÈëÔªËØ¡£
 {
@@ -48,11 +52,12 @@ void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊýÃûÖÐ¿ÉÒÔ±
 	}
 }
 
+
 Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊýÎªmµÄÒ»Ôª¶àÏîÊ½£¨Ò»¸ö¶àÏîÊ½×î¶à²»³¬¹ý20Ïî£© 
 {
 	int i;
 	Polyn p;
-	head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ
+	p = head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
 	head->next = NULL;
 	for (i = 0; i < m; i++)
 	{
@@ -64,7 +69,23 @@ Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊýÎªmµÄÒ»Ôª¶àÏîÊ½£
 	return head;
 }
 
-void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag
+
+void DestroyPolyn(Polyn p) //Ïú»Ù¶àÏîÊ½p
+{
+	Polyn q1, q2;
+	q1 = p->next;
+	q2 = q1->next;
+	while (q1->next)
+	{
+		free(q1);
+		q1 = q2;
+		q2 = q2->next;
+	}
+}
+
+
+
+void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag*
 {
 	Polyn q = P->next;
 	int flag = 1;                              //ÏîÊý¼ÆÊýÆ÷
@@ -110,6 +131,7 @@ void PrintPolyn(Polyn P) //Êä³ö¶àÏîÊ½£¬ÉèÖÃÒ»¸ö±êÖ¾flag
 	printf("\n");
 }
 
+
 int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ 
 {
 	if (a&&b)                //aºÍbÍ¬Ê±Îªtrue, ²Å·µ»Ø true, ·ñÔò·µ»Øfalse
@@ -124,6 +146,7 @@ int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ
 		return -1;             //a¶àÏîÊ½ÒÑ¿Õ£¬µ«b¶àÏîÊ½·Ç¿Õ
 	else return 1;         //b¶àÏîÊ½ÒÑ¿Õ£¬µ«a¶àÏîÊ½·Ç¿Õ
 }
+
 
 Polyn AddPolyn(Polyn pa, Polyn pb)//¶àÏîÊ½¼Ó·¨
 {//Çó½â²¢½¨Á¢¶àÏîÊ½a+b£¬·µ»ØÆäÍ·Ö¸Õë
@@ -170,6 +193,7 @@ Polyn AddPolyn(Polyn pa, Polyn pb)//¶àÏîÊ½¼Ó·¨
 	}
 	return headc;
 }
+
 
 Polyn SubtractPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a-b£¬·µ»ØÆäÍ·Ö¸Õë
 {
@@ -246,71 +270,70 @@ Polyn MultiplyPolyn(Polyn pa, Polyn pb) //Çó½â²¢½¨Á¢¶àÏîÊ½a*b£¬·µ»ØÆäÍ·Ö¸Õë
 	return hf;
 }
 
-Polyn WriteFile(Polyn pa,Polyn pb)
+
+void WriteFile(Polyn pa, Polyn pb)
 {
 	FILE *fp;
-	Polyn qa = pa->next;//¶¨ÒåqaºÍqbÁ½¸öÐÂ½á¹¹Ìå±äÁ¿À´ÔÝÊ±´æ´¢pa->nextºÍpb->nextµÄÁ´±í
+	Polyn qa = pa->next;
 	Polyn qb = pb->next;
 	int i = 1, j = 1;
-	if ((fp = fopen("data.txt", "w")) == NULL)//´ò¿ªÎÄ¼þ²¢ÅÐ¶ÏÊÇ·ñ´ò¿ª³É¹¦
+	if ((fp = fopen("a.txt", "w")) == NULL)
 	{
 		printf("ÎÄ¼þ´ò¿ªÊ§°Ü");
 		exit(0);
 	}
 	for (; qa; qa = qa->next)
 	{
-		printf("Ð´ÈëÎÄ¼þµÄ¶àÏîÊ½aµÚ%dÏîÏµÊýºÍÖ¸Êý·Ö±ðÎª£º%.2f  %d\n", i, qa->coef, qa->expn);//ÏÈÊä³öÒªÐ´ÈëµÄ¶àÏîÊ½µÄÏµÊý
-		fprintf(fp, "(%.2f, %d)", qa->coef, qa->expn);//ÏòÎÄ¼þÊä³ö¸ñÊ½»¯µÄÏµÊýºÍÖ¸Êý
+		printf("Ð´ÈëÎÄ¼þµÄ¶àÏîÊ½aµÚ%dÏîÏµÊýºÍÖ¸Êý·Ö±ðÎª£º%.2f  %d\n", i, qa->coef, qa->expn);
+		fprintf(fp, "%.2f %d\n", qa->coef, qa->expn);
 		i++;
 	}
-	fprintf(fp, "\n");
+	fclose(fp);
+	if ((fp = fopen("b.txt", "w")) == NULL)
+	{
+		printf("ÎÄ¼þ´ò¿ªÊ§°Ü");
+		exit(0);
+	}
 	for (; qb; qb = qb->next)
 	{
 		printf("Ð´ÈëÎÄ¼þµÄ¶àÏîÊ½bµÚ%dÏîÏµÊýºÍÖ¸Êý·Ö±ðÎª£º%.2f  %d\n", j, qb->coef, qb->expn);
-		fprintf(fp, "(%.2f, %d)", qb->coef, qb->expn);
+		fprintf(fp, "%.2f %d\n", qb->coef, qb->expn);
 		j++;
 	}
 	fclose(fp);
 }
 
-Polyn ReadFile()
+void ReadFile(Polyn *pa, Polyn *pb)
 {
-	//int i,m=2;
-	//Polyn p;
-	//p == (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
-	//p->next = NULL;
 	FILE *fp;
-	Polyn pr=0;
-	Polyn head1;
-	if ((fp = fopen("data.txt", "r")) == NULL)
+	Polyn p;
+	if ((fp = fopen("a.txt", "r")) == NULL)
 	{
 		printf("ÎÄ¼þ´ò¿ªÊ§°Ü");
 		exit(0);
 	}
-	pr = head1 = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
-	head1->next = NULL;
-	//for (i = 0; i < m; i++)
-	//{
-	pr = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
-	while (getchar() != '\n');
-	fscanf(fp, "(%.2f,%d)", pr->coef, pr->expn);
-	Insert(pr, head1);//µ÷ÓÃInsertº¯Êý²åÈë½áµã
-	printf("%.2f  %d", pr->coef, pr->expn);
-	fclose(fp);
-	//}
-}
 
-void DestroyPolyn(Polyn p) //Ïú»Ù¶àÏîÊ½p
-{
-	Polyn q1, q2;
-	q1 = p->next;
-	q2 = q1->next;
-	while (q1->next)
-	{
-		free(q1);
-		q1 = q2;
-		q2 = q2->next;
+	p = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
+	while (fscanf(fp, "%f %d\n", &p->coef, &p->expn) != EOF) {
+		printf("%.2f  %d\n", p->coef, p->expn);
+		Insert(p, *pa);                            //µ÷ÓÃInsertº¯Êý²åÈë½áµã
+		p = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
 	}
+	fclose(fp);
+
+	if ((fp = fopen("b.txt", "r")) == NULL)
+	{
+		printf("ÎÄ¼þ´ò¿ªÊ§°Ü");
+		exit(0);
+	}
+	p = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
+	while (fscanf(fp, "%f %d\n", &p->coef, &p->expn) != EOF) {
+		printf("%.2f  %d\n", p->coef, p->expn);
+		Insert(p, *pb);                            //µ÷ÓÃInsertº¯Êý²åÈë½áµã
+		p = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
+	}
+	fclose(fp);
+
 }
 
 /*Ö÷º¯Êý£¬²Ëµ¥¹¦ÄÜ*/
@@ -342,27 +365,27 @@ void main()
 	pb = CreatePolyn(pb, n);//½¨Á¢¶àÏîÊ½b
 
 	//Êä³ö²Ëµ¥
-	printf("   ********************************************************************\n");
-	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌÐò                          *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b               *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             C:Êä³öaµÄµ¼Êý            D:Êä³öbµÄµ¼Êý               *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             E:´úÈëxµÄÖµ¼ÆËãa         F:´úÈëxµÄÖµ¼ÆËãb            *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             G:Êä³öa+b                H:Êä³öa-b                   *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             I:Êä³öa*b                J:°Ñ¶àÏîÊ½Ð´ÈëÎÄ¼þ          *\n");
-	printf("   *                                                                  *\n");
-	printf("   *             K:¶ÁÈ¡ÎÄ¼þÖÐµÄ¶àÏîÊ½     L:ÍË³ö³ÌÐò                  *\n");
-	printf("   *                                                                  *\n");
-	printf("   ********************************************************************\n");
+	printf("   **********************************************************\n");
+	printf("   *                          ¶àÏîÊ½²Ù×÷³ÌÐò                *\n");
+	printf("   *                                                        *\n");
+	printf("   *           A:Êä³ö¶àÏîÊ½a            B:Êä³ö¶àÏîÊ½b       *\n");
+	printf("   *                                                        *\n");
+	printf("   *           C:Êä³öaµÄµ¼Êý            D:Êä³öbµÄµ¼Êý       *\n");
+	printf("   *                                                        *\n");
+	printf("   *           E:´úÈëxµÄÖµ¼ÆËãa         F:´úÈëxµÄÖµ¼ÆËãb    *\n");
+	printf("   *                                                        *\n");
+	printf("   *           G:Êä³öa+b                H:Êä³öa-b           *\n");
+	printf("   *                                                        *\n");
+	printf("   *           I:Êä³öa*b                J:°Ñ¶àÏîÊ½Ð´ÈëÎÄ¼þ  *\n");
+	printf("   *                                                        *\n");
+	printf("   *           K:¶ÁÈ¡ÎÄ¼þÖÐµÄ¶àÏîÊ½     L:ÍË³ö³ÌÐò          *\n");
+	printf("   *                                                        *\n");
+	printf("   **********************************************************\n");
 
 	while (a)
 	{
 		printf("\nÇëÑ¡Ôñ²Ù×÷£º");
-		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ,¿É½«»º³åÇøÄÚµÄ¿Õ¸ñµÈ·ûºÅÓ°ÏìÏû³ý
+		scanf(" %c", &flag);//¿Õ¸ñ·ûºÅÒ»¶¨Òª×¢Òâ,½«»º³åÇøÄÚµÄ¿Õ¸ñµÈ·ûºÅÓ°ÏìÏû³ý
 		switch (flag)
 		{
 
@@ -439,14 +462,18 @@ void main()
 		case'J':
 		case'j':
 		{
-			
+
 			WriteFile(pa, pb);
 			break;
 		}
 		case'K':
 		case'k':
 		{
-			ReadFile();//ÕâÀïÓÐÎÊÌâ
+			pa = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
+			pa->next = NULL;
+			pb = (Polyn)malloc(sizeof(struct Polynomial));//½¨Á¢ÐÂ½áµãÒÔ½ÓÊÕÊý¾Ý
+			pb->next = NULL;
+			ReadFile(&pa, &pb);
 			break;
 		}
 		case'L':
