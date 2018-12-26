@@ -208,7 +208,7 @@ Polyn SubtractPolyn(Polyn pa, Polyn pb) //求解并建立多项式a-b，返回其头指针
 	return pd;
 }
 
-float ValuePolyn(Polyn head, int x) //输入x值，计算并返回多项式的值
+float ValuePolyn(Polyn head, float x) //输入x值，计算并返回多项式的值
 {
 	Polyn p;
 	int i;
@@ -273,29 +273,53 @@ Polyn WriteFile(Polyn pa,Polyn pb)
 	FILE *fp;
 	Polyn qa = pa->next;
 	Polyn qb = pb->next;
+	int i = 1, j = 1;
 	if ((fp = fopen("data.txt", "w")) == NULL)
 	{
 		printf("文件打开失败");
 		exit(0);
 	}
-	printf("(%.2f, %d)", qa->coef, qa->expn);
-	fprintf(fp, "(%.2f, %d)", qa->coef,qa->expn);
+	for (; qa; qa = qa->next)
+	{
+		printf("写入文件的多项式a第%d项系数和指数分别为：%.2f  %d\n", i, qa->coef, qa->expn);
+		fprintf(fp, "(%.2f, %d)", qa->coef, qa->expn);
+		i++;
+	}
+	fprintf(fp, "\n");
+	for (; qb; qb = qb->next)
+	{
+		printf("写入文件的多项式b第%d项系数和指数分别为：%.2f  %d\n", j, qb->coef, qb->expn);
+		fprintf(fp, "(%.2f, %d)", qb->coef, qb->expn);
+		j++;
+	}
 	fclose(fp);
 }
 
 Polyn ReadFile()
 {
+	//int i,m=2;
+	//Polyn p;
+	//p == (Polyn)malloc(sizeof(struct Polynomial));//动态分配内存 
+	//p->next = NULL;
 	FILE *fp;
-	int i,m=2;
-	Polyn p;
-	p == (Polyn)malloc(sizeof(struct Polynomial));//动态分配内存 
-	p->next = NULL;
-	if ((fp = fopen("data.txt", "w")) == NULL)
+	Polyn pr=0;
+	Polyn head1;
+	if ((fp = fopen("data.txt", "r")) == NULL)
 	{
 		printf("文件打开失败");
 		exit(0);
 	}
-	fscanf(fp, "(%.2f, %d)", p->coef, p->expn);
+	pr = head1 = (Polyn)malloc(sizeof(struct Polynomial));//动态分配内存 
+	head1->next = NULL;
+	//for (i = 0; i < m; i++)
+	//{
+	pr = (Polyn)malloc(sizeof(struct Polynomial));//建立新结点以接收数据
+	while (getchar() != '\n');
+	fscanf(fp, "(%.2f,%d)", pr->coef, pr->expn);
+	Insert(pr, head1);//调用Insert函数插入结点
+	printf("%.2f  %d", pr->coef, pr->expn);
+	fclose(fp);
+	//}
 }
 
 /*主函数，菜单功能*/
@@ -312,7 +336,7 @@ void main()
 	while (0 >= m || m > 20 || o != 1)//判断用户输入的值是否满足条件
 	{
 		printf("请重新输入项数");
-		while (getchar() != '\n');
+		while (getchar() != '\n');//清除缓存区中的回车符
 		o = scanf("%d", &m);
 	};
 	pa = CreatePolyn(pa, m);//建立多项式a
@@ -321,7 +345,7 @@ void main()
 	while (0 >= n || n > 20 || o != 1)
 	{
 		printf("请重新输入项数");
-		while (getchar() != '\n');
+		while (getchar() != '\n');//清除缓存区中的回车符
 		o = scanf("%d", &n);
 	};
 	pb = CreatePolyn(pb, n);//建立多项式b
@@ -432,6 +456,7 @@ void main()
 		case'k':
 		{
 			ReadFile();//这里有问题
+			break;
 		}
 		case'L':
 		case'l':
