@@ -1,6 +1,3 @@
-// 3.cpp : Defines the entry point for the console application.
-//
-
 //头文件
 #include<stdio.h>
 #include<malloc.h>
@@ -16,7 +13,7 @@ typedef struct Polynomial     //多项式
 	struct Polynomial *next;  //递归 
 }*Polyn, Polynomial;
 
-/*设计思路 利用insert函数，将指数插入到存储空间。若指数相同相合并 ；
+/*设计思路 利用insert函数，将一定指数的向插入到存储空间。若指数相同相合并 ；
 若系数为0的话释放结点；若指数为新将结点插入*/
 
 
@@ -344,7 +341,7 @@ void main()
 	char flag;
 	Polyn pa = 0, pb = 0, pc;
 	system("color 70");//设定背景和字体颜色，仅有16位
-	printf("         欢迎使用多项式操作程序\n\n");
+	printf("         欢迎使用一元多项式操作程序\n\n");
 	printf("请输入a的项数:");
 	o = scanf("%d", &m);//当输入不需要的数据类型的数据，o就不等于1
 	while (0 >= m || m > 20 || o != 1)//判断用户输入的值是否满足条件
@@ -365,22 +362,22 @@ void main()
 	pb = CreatePolyn(pb, n);//建立多项式b
 
 	//输出菜单
-	printf("   **********************************************************\n");
-	printf("   *                          多项式操作程序                *\n");
-	printf("   *                                                        *\n");
-	printf("   *           A:输出多项式a            B:输出多项式b       *\n");
-	printf("   *                                                        *\n");
-	printf("   *           C:输出a的导数            D:输出b的导数       *\n");
-	printf("   *                                                        *\n");
-	printf("   *           E:代入x的值计算a         F:代入x的值计算b    *\n");
-	printf("   *                                                        *\n");
-	printf("   *           G:输出a+b                H:输出a-b           *\n");
-	printf("   *                                                        *\n");
-	printf("   *           I:输出a*b                J:把多项式写入文件  *\n");
-	printf("   *                                                        *\n");
-	printf("   *           K:读取文件中的多项式     L:退出程序          *\n");
-	printf("   *                                                        *\n");
-	printf("   **********************************************************\n");
+	printf("   ****************************************************************\n");
+	printf("   *                      一元多项式操作程序                      *\n");
+	printf("   *                                                              *\n");
+	printf("   *           A:输出多项式a            B:输出多项式b             *\n");
+	printf("   *                                                              *\n");
+	printf("   *           C:输出a的导数            D:输出b的导数             *\n");
+	printf("   *                                                              *\n");
+	printf("   *           E:代入x的值计算a         F:代入x的值计算b          *\n");
+	printf("   *                                                              *\n");
+	printf("   *           G:输出a+b                H:输出a-b                 *\n");
+	printf("   *                                                              *\n");
+	printf("   *           I:输出a*b                J:把多项式写入文件        *\n");
+	printf("   *                                                              *\n");
+	printf("   *           K:读取文件中的多项式     L:退出程序                *\n");
+	printf("   *                                                              *\n");
+	printf("   ****************************************************************\n");
 
 	while (a)
 	{
