@@ -17,7 +17,7 @@ typedef struct Polynomial     //¶àÏîÊ½
 ÈôÏµÊýÎª0µÄ»°ÊÍ·Å½áµã£»ÈôÖ¸ÊýÎªÐÂ½«½áµã²åÈë*/
 
 
-void Insert(Polyn p, Polyn h)  // ²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊýÃûÖÐ¿ÉÒÔ±íÊ¾²åÈëÔªËØ¡£
+void Insert(Polyn p, Polyn h)  //²åÈë£¬Ëü²¢²»ÊÇCÓïÑÔµÄÒ»²¿·Ö£¬ÓÃÔÚº¯ÊýÃûÖÐ¿ÉÒÔ±íÊ¾²åÈëÔªËØ¡£
 {
 	if (p->coef == 0)
 		free(p);                  //ÏµÊýÎª0µÄ»°ÊÍ·Å½áµã
@@ -54,7 +54,7 @@ Polyn CreatePolyn(Polyn head, int m)//½¨Á¢Ò»¸öÍ·Ö¸ÕëÎªhead¡¢ÏîÊýÎªmµÄÒ»Ôª¶àÏîÊ½£
 {
 	int i;
 	Polyn p;
-	p = head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
+	head = (Polyn)malloc(sizeof(struct Polynomial));//¶¯Ì¬·ÖÅäÄÚ´æ 
 	head->next = NULL;
 	for (i = 0; i < m; i++)
 	{
@@ -133,7 +133,7 @@ int compare(Polyn a, Polyn b)//±È½Ïa,bÖµ
 {
 	if (a&&b)                //aºÍbÍ¬Ê±Îªtrue, ²Å·µ»Ø true, ·ñÔò·µ»Øfalse
 	{
-		if (!b || a->expn > b->expn) // Á©ÕßÈÎÒâÒ»¸öÎªtrue ¾Í·µ»Øtrue , ·ñÔò·µ»Øfalse
+		if (!b || a->expn > b->expn) // ¶àÏîÊ½b²»Îª0»òaµÄÖ¸Êý´óÓÚbµÄÖ¸Êý
 			return 1;
 		else if (!a || a->expn < b->expn)
 			return -1;
