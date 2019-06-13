@@ -3,7 +3,7 @@
 #include<malloc.h>
 #include<stdlib.h>
 
-/*利用结构体定义多项式的项 */
+/*利用结构体定义多项式的项*/
 
 
 typedef struct Polynomial     //多项式 
